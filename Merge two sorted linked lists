@@ -48,17 +48,23 @@ def print_singly_linked_list(node, sep, fptr):
 #
 def mergeLists(head1, head2):
 #write your code here
-    if head1 is None:
+    if head1 == None:
         return head2
-    if head2 is None:
+    if head2 == None:
         return head1
     if head1.data < head2.data:
-        smallerNode = head1
-        smallerNode.next = mergeLists(head1.next, head2)
+        start = head1
+        (this, other) = (head1, head2)
     else:
-        smallerNode = head2
-        smallerNode.next = mergeLists(head1, head2.next)  
-    return smallerNode
+        start = head2
+        (this, other) = (head2, head1)
+    while other != None:
+        if this.next != None and this.next.data < other.data:
+            this = this.next
+        else:
+            (this.next, this) = (other, this.next)
+            (this, other) = (other, this)
+    return start
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
